@@ -1,6 +1,21 @@
-# cctoken-saverr
+<div align="center">
 
-A Claude Code plugin that lowers your bill by cutting **cache read** and **cache write** tokens, with guardrails so important context is never lost.
+<img src="assets/hero.svg" alt="cctoken-saverr" width="100%"/>
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-7ef0c4?style=for-the-badge)](LICENSE)
+![Claude Code plugin](https://img.shields.io/badge/Claude%20Code-plugin-d97757?style=for-the-badge)
+![Python 3](https://img.shields.io/badge/python-3-3776ab?style=for-the-badge&logo=python&logoColor=white)
+![Version](https://img.shields.io/badge/version-0.2.0-ffd36e?style=for-the-badge)
+
+**A Claude Code plugin that lowers your bill by cutting _cache read_ and _cache write_ tokens, with guardrails so important context is never lost.**
+
+[Install](#install) · [How to use](#how-to-use-it) · [Guardrails](#guardrails-protecting-important-context) · [Config](#configuration)
+
+</div>
+
+---
+
+<img src="assets/flow.svg" alt="Skill, idle guard, notes file and backups" width="100%"/>
 
 Every turn, Claude Code resends your whole conversation. Most of it comes from the prompt cache, but you still pay for it on every turn (cache read, 0.1x input price), and anything new or expired is billed as a cache write (1.25x, or 2x with the 1-hour cache). So cost scales with **how big your context is** and **how often the cache is rebuilt**. cctoken-saverr attacks both, without trading away correctness.
 
@@ -109,6 +124,8 @@ Saving tokens is never worth losing the thread. cctoken-saverr protects context 
 ## The 5-minute idle problem
 
 The prompt cache expires after 5 minutes without activity. Take a 10-minute break in a 150k-token session and your next message rewrites all 150k tokens at the write price instead of reading them, roughly 12x more for that turn.
+
+<img src="assets/idle.svg" alt="Cache read vs cache write after idle" width="100%"/>
 
 The idle guard warns you:
 ```
